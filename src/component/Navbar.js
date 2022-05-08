@@ -1,7 +1,7 @@
 import React from "react";
 import { PageHeader } from "antd";
 import "../styles/Navbar.scss";
-
+import { Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -11,7 +11,8 @@ export default function Navbar() {
         className="site-page-header"
         title="Book Store"
         extra={[
-          <div key={1} className="add-book-button">Add Book</div>,
+          <div key={1} className="add-book-button"><Link to="/addbook">Add book</Link></div>,
+          <div key={2} className="add-book-button"><Link to="/">Back</Link></div>
         ]}
       />
     </div>

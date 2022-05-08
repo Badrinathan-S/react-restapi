@@ -64,6 +64,7 @@ const columns = [
 export default function BookTable() {
 
   const [bookList, setBookList] = useState([])
+  const [loading, setLoading] = useState(true)
  
   useEffect(() => {
     
@@ -73,11 +74,12 @@ export default function BookTable() {
     .catch((err) => {
       console.log(err);
     })
+    setLoading(false);
     
   }, []);
   return (
     <div>
-      <Table columns={columns} dataSource={bookList} />;
+      <Table columns={columns} dataSource={bookList}  loading={loading}/>;
     </div>
   );
 }
