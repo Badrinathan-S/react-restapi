@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const columns = [
   {
     title: "Book Name",
     dataIndex: "bookName",
     key: "bookName",
-    render: (text) => <a href="http://localhost:8080/home">{text}</a>,
+    render: (text, record) => <Link to={{pathname: `/${record.bookId}`}} >{text}</Link>,
   },
   {
     title: "Description",
@@ -26,11 +27,11 @@ const columns = [
   },
   {
     title: "Action",
-    key: 4,
+    key: "action",
     render: (record) => (
       <Space size="middle">
-        <a href="google.com">Invite {record.name}</a>
-        <a href="google.com">Delete</a>
+        <Link to={{pathname: "/"}}>Edit</Link>
+        <Link to={{pathname: "/"}}>Delete</Link>
       </Space>
     ),
   },
