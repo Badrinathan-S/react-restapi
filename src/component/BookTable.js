@@ -3,39 +3,7 @@ import { Table, Space } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const columns = [
-  {
-    title: "Book Name",
-    dataIndex: "bookName",
-    key: "bookName",
-    render: (text, record) => <Link to={{pathname: `/${record.bookId}`}} >{text}</Link>,
-  },
-  {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
-  },
-  {
-    title: "Year of publication",
-    dataIndex: "yearOfPublication",
-    key: "yearOfPublication",
-  },
-  {
-    title: "Type",
-    dataIndex: "bookType",
-    key: "bookType",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (record) => (
-      <Space size="middle">
-        <Link to={{pathname: "/"}}>Edit</Link>
-        <Link to={{pathname: "/"}}>Delete</Link>
-      </Space>
-    ),
-  },
-];
+
 
 // const data = [
 //   {
@@ -64,6 +32,52 @@ const columns = [
 
 export default function BookTable() {
 
+  const onDelete = (id) => {
+
+    axios.delete(`http://localhost:8080/${id}`).then((response) => {
+      setBookList(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    setLoading(false);
+
+  }
+
+  const columns = [
+    {
+      title: "Book Name",
+      dataIndex: "bookName",
+      key: "bookName",
+      render: (text, record) => <Link to={{pathname: `/${record.bookId}`}} >{text}</Link>,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
+      title: "Year of publication",
+      dataIndex: "yearOfPublication",
+      key: "yearOfPublication",
+    },
+    {
+      title: "Type",
+      dataIndex: "bookType",
+      key: "bookType",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record) => (
+        <Space size="middle">
+          <Link to={{pathname: `/edit/${record.bookId}`}}>Edit</Link>
+          <Link to={{pathname: "/"}} onClick={onDelete(record.bookId)}>Delete</Link>
+        </Space>
+      ),
+    },
+  ];
+  
   const [bookList, setBookList] = useState([])
   const [loading, setLoading] = useState(true)
  
@@ -80,7 +94,7 @@ export default function BookTable() {
   }, []);
   return (
     <div>
-      <Table columns={columns} dataSource={bookList}  loading={loading}/>;
+      <Table rowKey={(record) => record.bookId} columns={columns} dataSource={bookList}  loading={loading}/>;
     </div>
   );
 }
