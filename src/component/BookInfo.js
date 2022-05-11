@@ -11,15 +11,15 @@ export default function BookInfo() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // axios
-    //   .get(`http://localhost:8080/${params.Id}`)
-    //   .then((response) => {
-    //     setBook(response.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // setLoading(false);
+    axios
+      .get(`http://localhost:8080/${params.Id}`)
+      .then((response) => {
+        setBook(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
   }, []);
 
   return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Space } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { listing } from "../api/API";
 
 
 
@@ -72,24 +73,33 @@ export default function BookTable() {
       render: (record) => (
         <Space size="middle">
           <Link to={{pathname: `/edit/${record.bookId}`}}>Edit</Link>
-          <Link to={{pathname: "/"}} onClick={onDelete(record.bookId)}>Delete</Link>
+          <Link to={{pathname: "/"}} onClick={() => onDelete(record.bookId)}>Delete</Link>
         </Space>
       ),
     },
   ];
+
+  
   
   const [bookList, setBookList] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const res = async() => {
+    const data = await listing();
+    setBookList(data);
+    setLoading(false);
+  };
  
   useEffect(() => {
-    
-    axios.get("http://localhost:8080/home").then((response) => {
-      setBookList(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    setLoading(false);
+
+    res();
+    // axios.get("http://localhost:8080/home").then((response) => {
+    //   setBookList(response.data);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // })
+    // setLoading(false);
     
   }, []);
   return (
