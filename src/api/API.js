@@ -8,3 +8,20 @@ export const listing = async() => {
     return res.data; 
 
 }
+
+
+export const viewing = async(id) => {
+
+    const res = await axios.get(`${url}/${id}`);
+
+    return res.data; 
+
+}
+
+export const adding = async(book) => {
+
+    const res = await axios.post(`${url}/send`, book);
+
+    return res.data; 
+
+}

@@ -1,7 +1,8 @@
 import React from "react";
 import { Form, Input, InputNumber, Button } from "antd";
-import '../styles/AddBook.scss';
-
+import "../styles/AddBook.scss";
+import { adding } from "../api/API";
+import { useNavigate } from "react-router-dom";
 
 const layout = {
   labelCol: { span: 8 },
@@ -11,7 +12,6 @@ const layout = {
 const validateMessages = {
   required: "${label} is required!",
   types: {
-    email: "${label} is not a valid email!",
     number: "${label} is not a valid number!",
   },
   number: {
@@ -20,52 +20,56 @@ const validateMessages = {
 };
 
 export default function AddBook() {
-  const onFinish = (values: any) => {
-    console.log(values);
+
+  const navigate = useNavigate();
+
+  const onFinish = async(values) => {
+    // console.log(values.book);
+
+    // const res = async(book) => {
+      const data = await adding(values.book);
+      console.log(data)
+    // };
+
+    navigate("/home")
+
   };
 
   return (
     <div className="addbook">
       <Form
-        {...layout}
+      {...layout}
         name="nest-messages"
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={["user", "name"]}
-          label="Name"
+          name={["book", "bookName"]}
+          label="Book Name"
           rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name={["user", "email"]}
-          label="Email"
-          rules={[{ type: "email", required: true }]}
+          name={["book", "description"]}
+          label="Description"
+          rules={[{ required: true }]}
         >
-          <Input />
+        <Input.TextArea  />
         </Form.Item>
         <Form.Item
-          name={["user", "age"]}
-          label="Age"
-          rules={[{ type: "number", min: 0, max: 99, required: true }]}
+          name={["book", "yearOfPublication"]}
+          label="Year of publication"
+          rules={[{ type: "number", min: 1000, max: 2022, required: true }]}
         >
           <InputNumber />
         </Form.Item>
         <Form.Item
-          name={["user", "website"]}
-          label="Website"
+          name={["book", "bookType"]}
+          label="Book Type"
           rules={[{ required: true }]}
         >
           <Input />
-        </Form.Item>
-        <Form.Item
-          name={["user", "introduction"]}
-          label="Introduction"
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">

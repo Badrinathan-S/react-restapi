@@ -9,8 +9,6 @@ export default function EditBook() {
   const [book, setBook] = useState();
   const [loading, setLoading] = useState(true);
 
-  console.log(pramas)
-
   useEffect(() => {
 
     axios

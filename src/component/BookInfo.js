@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import { Button, Card } from "antd";
 import "../styles/BookInfo.scss";
+import { viewing } from "../api/API";
 
 export default function BookInfo() {
   const params = useParams();
@@ -10,16 +10,25 @@ export default function BookInfo() {
   const [book, setBook] = useState();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/${params.Id}`)
-      .then((response) => {
-        setBook(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const res = async(id) => {
+    const data = await viewing(id);
+    setBook(data);
     setLoading(false);
+  };
+
+  useEffect(() => {
+
+    res(params.Id);
+    // axios
+    //   .get(`http://localhost:8080/${params.Id}`)
+    //   .then((response) => {
+    //     setBook(response.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    // eslint-disable-next-line
   }, []);
 
   return (

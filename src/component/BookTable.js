@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space } from "antd";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { listing } from "../api/API";
 
 
@@ -33,9 +33,12 @@ import { listing } from "../api/API";
 
 export default function BookTable() {
 
-  const onDelete = (id) => {
+  
 
-    axios.delete(`http://localhost:8080/${id}`).then((response) => {
+  const onDelete = (id) => {
+    
+    setLoading(true);
+    axios.delete(`http://localhost:8080/remove/${id}`).then((response) => {
       setBookList(response.data);
     })
     .catch((err) => {
