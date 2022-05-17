@@ -36,7 +36,7 @@ export default function AddBook() {
   };
 
   return (
-    <div className="addbook">
+    <div className="addbook" style={{marginTop: 20}}>
       <Form
       {...layout}
         name="nest-messages"
