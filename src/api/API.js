@@ -18,6 +18,8 @@ export const viewing = async(id) => {
 
 }
 
+// for adding and updating both have same API.
+
 export const adding = async(book) => {
 
     const res = await axios.post(`${url}/send`, book);

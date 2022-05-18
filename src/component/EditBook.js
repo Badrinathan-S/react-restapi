@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Button, Skeleton } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,11 +10,14 @@ export default function EditBook() {
   };
 
   const validateMessages = {
+    // eslint-disable-next-line
     required: "${label} is required!",
     types: {
+      // eslint-disable-next-line
       number: "${label} is not a valid number!",
     },
     number: {
+      // eslint-disable-next-line
       range: "${label} must be between ${min} and ${max}",
     },
   };
@@ -39,15 +41,14 @@ export default function EditBook() {
     // console.log(values.book);
 
     // const res = async(book) => {
-    // const data = await adding(values.book);
-    console.log(values);
+      const data = await adding(values);
+      console.log(data);
     // };
 
-    // navigate("/home")
+    navigate("/home")
   };
   const res = async (id) => {
     const data = await viewing(id);
-    console.log(data.bookType)
     const initialState = {
       bookId: data.bookId,
       bookName: data.bookName,
@@ -58,9 +59,6 @@ export default function EditBook() {
     setBook(initialState);
     setLoading(false);
 
-    setTimeout(() => {
-      console.log(book);
-    }, 5000);
   };
 
   useEffect(() => {

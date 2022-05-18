@@ -10,11 +10,14 @@ const layout = {
 };
 
 const validateMessages = {
+  // eslint-disable-next-line
   required: "${label} is required!",
   types: {
+    // eslint-disable-next-line
     number: "${label} is not a valid number!",
   },
   number: {
+    // eslint-disable-next-line
     range: "${label} must be between ${min} and ${max}",
   },
 };
@@ -24,7 +27,6 @@ export default function AddBook() {
   const navigate = useNavigate();
 
   const onFinish = async(values) => {
-    // console.log(values.book);
 
     // const res = async(book) => {
       const data = await adding(values.book);

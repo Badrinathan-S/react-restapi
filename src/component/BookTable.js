@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space } from "antd";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { listing } from "../api/API";
-
-
 
 // const data = [
 //   {
@@ -20,7 +18,7 @@ import { listing } from "../api/API";
 //     description: 42,
 //     yearOfPublication: "London No. 1 Lake Park",
 //     bookType: 2022,
-    
+
 //   },
 //   {
 //     key: 3,
@@ -32,28 +30,27 @@ import { listing } from "../api/API";
 // ]
 
 export default function BookTable() {
-
-  
-
   const onDelete = (id) => {
-    
     setLoading(true);
-    axios.delete(`http://localhost:8080/remove/${id}`).then((response) => {
-      setBookList(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    axios
+      .delete(`http://localhost:8080/remove/${id}`)
+      .then((response) => {
+        setBookList(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setLoading(false);
-
-  }
+  };
 
   const columns = [
     {
       title: "Book Name",
       dataIndex: "bookName",
       key: "bookName",
-      render: (text, record) => <Link to={{pathname: `/${record.bookId}`}} >{text}</Link>,
+      render: (text, record) => (
+        <Link to={{ pathname: `/${record.bookId}` }}>{text}</Link>
+      ),
     },
     {
       title: "Description",
@@ -75,26 +72,25 @@ export default function BookTable() {
       key: "action",
       render: (record) => (
         <Space size="middle">
-          <Link to={{pathname: `/edit/${record.bookId}`}}>Edit</Link>
-          <Link to={{pathname: "/"}} onClick={() => onDelete(record.bookId)}>Delete</Link>
+          <Link to={{ pathname: `/edit/${record.bookId}` }}>Edit</Link>
+          <Link to={{ pathname: "/" }} onClick={() => onDelete(record.bookId)}>
+            Delete
+          </Link>
         </Space>
       ),
     },
   ];
 
-  
-  
-  const [bookList, setBookList] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [bookList, setBookList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const res = async() => {
+  const res = async () => {
     const data = await listing();
     setBookList(data);
     setLoading(false);
   };
- 
-  useEffect(() => {
 
+  useEffect(() => {
     res();
     // axios.get("http://localhost:8080/home").then((response) => {
     //   setBookList(response.data);
@@ -103,11 +99,18 @@ export default function BookTable() {
     //   console.log(err);
     // })
     // setLoading(false);
-    
   }, []);
+
   return (
     <div>
-      <Table rowKey={(record) => record.bookId} columns={columns} dataSource={bookList}  loading={loading}/>;
+      <Table
+        rowKey={(record) => record.bookId}
+        columns={columns}
+        dataSource={bookList}
+        loading={loading}
+        scroll={{ y: 425 }}
+      />
+      ;
     </div>
   );
 }
