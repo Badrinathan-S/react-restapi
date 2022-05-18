@@ -108,7 +108,7 @@ export default function BookTable() {
         columns={columns}
         dataSource={bookList}
         loading={loading}
-        scroll={{ y: 425 }}
+        pagination={{pageSize: 7}}
       />
       ;
     </div>
