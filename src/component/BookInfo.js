@@ -41,7 +41,7 @@ export default function BookInfo() {
           loading={loading}
         >
           <p>Description: {book ? book.description : null}</p>
-          <p>yearOfPublication: {book ? book.yearOfPublication : null}</p>
+          <p>Year of publication: {book ? book.yearOfPublication : null}</p>
           <p>Type: {book ? book.bookType : null}</p>
           <div className="book-info-button">
             <Button type="primary"><Link to={{pathname: `/edit/${book? book.bookId : null}`}}>Edit</Link></Button>

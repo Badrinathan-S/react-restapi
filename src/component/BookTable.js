@@ -33,7 +33,7 @@ export default function BookTable() {
   const onDelete = (id) => {
     setLoading(true);
     axios
-      .delete(`http://localhost:8080/remove/${id}`)
+      .delete(`http://localhost:5000/remove/${id}`)
       .then((response) => {
         setBookList(response.data);
       })
