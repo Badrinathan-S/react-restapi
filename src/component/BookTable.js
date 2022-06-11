@@ -33,7 +33,7 @@ export default function BookTable() {
   const onDelete = (id) => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5000/remove/${id}`)
+      .delete(`https://springboot-restapi-backend.herokuapp.com/remove/${id}`)
       .then((response) => {
         setBookList(response.data);
       })

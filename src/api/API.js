@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5000";
+const url = "https://springboot-restapi-backend.herokuapp.com";
 
 export const listing = async() => {
 
