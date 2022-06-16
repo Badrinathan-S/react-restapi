@@ -42,7 +42,6 @@ export default function EditBook() {
 
     // const res = async(book) => {
       const data = await adding(values);
-      console.log(data);
     // };
 
     navigate("/home")
